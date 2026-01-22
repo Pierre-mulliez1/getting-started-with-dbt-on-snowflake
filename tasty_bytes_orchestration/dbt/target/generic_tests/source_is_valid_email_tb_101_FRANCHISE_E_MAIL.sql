@@ -1,0 +1,1 @@
+{{ test_is_valid_email(column_name="E_MAIL", model=get_where_subquery(source('tb_101', 'FRANCHISE'))) }}

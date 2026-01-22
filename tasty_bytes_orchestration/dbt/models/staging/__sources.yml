@@ -56,6 +56,7 @@ sources:
       description: 'Contact email'
       data_tests:
         - not_null
+        - is_valid_email
     - name: PHONE_NUMBER
       description: 'Contact phone number'
   - name: LOCATION

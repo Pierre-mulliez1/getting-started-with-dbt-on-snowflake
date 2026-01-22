@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: airflow-secrets
+type: Opaque
+stringData:
+  # Base64 encoded values usually, but stringData works for convenience
+  AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+  AIRFLOW_CONN_SNOWFLAKE_DEFAULT: "snowflake://_:_@_/TASTY_BYTES_DBT_DB/DEV?warehouse=COMPUTE_WH&role=ACCOUNTADMIN"
+  SNOWFLAKE_PASSWORD: "_" # Replace this
+  SNOWFLAKE_ACCOUNT: "_"
+  SNOWFLAKE_USER: "_"
+---
+# Database Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow-postgres
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: airflow-postgres
+---
+# Database Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-postgres
+spec:
+  selector:
+    matchLabels:
+      app: airflow-postgres
+  template:
+    metadata:
+      labels:
+        app: airflow-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          env:
+            - name: POSTGRES_USER
+              value: airflow
+            - name: POSTGRES_PASSWORD
+              value: airflow
+            - name: POSTGRES_DB
+              value: airflow
+
+---
+# Airflow Service (Exposing the Webserver)
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow-webserver
+spec:
+  type: NodePort # Allows access via localhost on Docker Desktop
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000 # Access via http://localhost:30000
+  selector:
+    app: airflow-main
+
+---
+# Airflow Deployment (Scheduler + Webserver)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow-main
+  template:
+    metadata:
+      labels:
+        app: airflow-main
+    spec:
+      initContainers:
+        # Replaces 'airflow-init' from docker-compose
+        - name: airflow-init
+          image: my-airflow-dbt:v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: airflow-secrets
+          command: ["bash", "-c", "airflow db migrate && airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com"]
+      containers:
+        - name: airflow-scheduler
+          image: my-airflow-dbt:v1
+          imagePullPolicy: IfNotPresent
+          command: ["airflow", "scheduler"]
+          envFrom:
+            - secretRef:
+                name: airflow-secrets
+        - name: airflow-webserver
+          image: my-airflow-dbt:v1
+          imagePullPolicy: IfNotPresent
+          command: ["airflow", "webserver"]
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: airflow-secrets

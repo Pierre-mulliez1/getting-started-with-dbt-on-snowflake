@@ -2,6 +2,11 @@ from datetime import datetime
 from pathlib import Path
 from cosmos import DbtDag, ProjectConfig, ProfileConfig
 from cosmos.profiles import SnowflakeUserPasswordProfileMapping
+from airflow.operators.python import PythonOperator
+
+def notify_failure(context):
+    print(f"ALARM! Task {context['task_instance_key_str']} failed.")
+    # Add SlackWebhookOperator logic here
 
 # Path to your dbt project
 DBT_PROJECT_PATH = Path("/opt/airflow/dbt")
@@ -22,5 +27,6 @@ tasty_bytes_dag = DbtDag(
     schedule_interval="@daily",
     start_date=datetime(2023, 1, 1),
     catchup=False,
+    on_failure_callback=notify_failure, 
     dag_id="tasty_bytes_dbt_transformation",
 )

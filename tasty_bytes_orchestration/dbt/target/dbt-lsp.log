@@ -1,0 +1,76 @@
+==================== 2026-01-19T15:42:25.593653Z | 37b0ea9b-8dad-4a90-b88c-9930c0ca42ec ====================
+15:42:25.593769 [info ]: Starting dbt LSP server
+15:42:25.593827 [info ]: Connecting to LSP client on port 8000
+15:42:25.597202 [info ]: Successfully connected to LSP client
+15:42:25.597218 [info ]: Creating LSP service...
+15:42:25.660696 [info ]: Creating LSP server...
+15:42:25.660726 [info ]: Starting LSP server...
+15:42:25.677879 [info ]: Started loading project
+15:42:25.684547 [info ]: Loading profiles.yml
+15:42:26.013005 [info ]: Loading profiles.yml
+15:42:26.292157 [info ]: Finished loading project [  0.61s]
+15:42:26.292760 [info ]: Started parsing
+15:42:26.437770 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:140:20
+15:42:26.449262 [error]: dbt1060: Ignored unexpected key `"loaded_at_field"`. YAML path: `loaded_at_field`.
+  --> models\staging\__sources.yml:168:5
+15:42:26.453282 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:187:20
+15:42:26.491086 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:180:20
+15:42:26.501602 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:273:20
+15:42:26.658507 [info ]: Finished parsing [  0.37s]
+15:42:26.660156 [info ]: Cached model count updated: 10 models (estimate)
+15:42:26.660185 [info ]: Cached model count updated: 11 models (accurate)
+15:42:26.660421 [info ]: Started scheduling
+15:42:26.661189 [info ]: Finished scheduling [  0.00s]
+==================== 2026-01-21T15:44:23.477784Z | e016acb8-848a-49be-9588-6f7ab12c18ab ====================
+15:44:23.477875 [info ]: Starting dbt LSP server
+15:44:23.477923 [info ]: Connecting to LSP client on port 8000
+15:44:23.481693 [info ]: Successfully connected to LSP client
+15:44:23.481711 [info ]: Creating LSP service...
+15:44:23.561124 [info ]: Creating LSP server...
+15:44:23.561155 [info ]: Starting LSP server...
+15:44:24.917011 [info ]: Started loading project
+15:44:24.973202 [info ]: Loading profiles.yml
+15:44:25.367491 [info ]: Loading profiles.yml
+15:44:26.886015 [info ]: Finished loading project [  1.97s]
+15:44:26.893383 [info ]: Started parsing
+15:44:27.224440 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:140:20
+15:44:27.232518 [error]: dbt1060: Ignored unexpected key `"loaded_at_field"`. YAML path: `loaded_at_field`.
+  --> models\staging\__sources.yml:168:5
+15:44:27.234120 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:187:20
+15:44:27.241410 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:180:20
+15:44:27.245046 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:273:20
+15:44:27.407394 [info ]: Finished parsing [  0.51s]
+15:44:27.411048 [info ]: Cached model count updated: 10 models (estimate)
+15:44:27.411070 [info ]: Cached model count updated: 11 models (accurate)
+15:44:27.412477 [info ]: Started scheduling
+15:44:27.415955 [info ]: Finished scheduling [  0.00s]
+08:50:26.824384 [info ]: Started loading project
+08:50:26.826476 [info ]: Loading profiles.yml
+08:50:27.485890 [info ]: Finished loading project [  0.66s]
+08:50:27.526512 [info ]: Started loading project
+08:50:27.527673 [info ]: Loading profiles.yml
+08:50:27.865689 [info ]: Finished loading project [  0.34s]
+08:50:27.866254 [info ]: Started parsing
+08:50:27.993108 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:141:20
+08:50:28.004712 [error]: dbt1060: Ignored unexpected key `"loaded_at_field"`. YAML path: `loaded_at_field`.
+  --> models\staging\__sources.yml:169:5
+08:50:28.025270 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:188:20
+08:50:28.057531 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:181:20
+08:50:28.067487 [error]: dbt0102: Deprecated test arguments: ["field", "to"] at top-level detected. Please migrate to the new format under the 'arguments' field: https://docs.getdbt.com/reference/deprecations#missingargumentspropertyingenerictestdeprecation.
+  --> models\staging\__sources.yml:274:20
+08:50:28.270009 [info ]: Finished parsing [  0.40s]
+08:50:28.271063 [info ]: Cached model count updated: 10 models (estimate)
+08:50:28.271079 [info ]: Cached model count updated: 11 models (accurate)
+08:50:28.271178 [info ]: Started scheduling
+08:50:28.271466 [info ]: Finished scheduling [  0.00s]
