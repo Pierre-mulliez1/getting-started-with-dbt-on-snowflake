@@ -6,10 +6,8 @@ type: Opaque
 stringData:
   # Base64 encoded values usually, but stringData works for convenience
   AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
-  AIRFLOW_CONN_SNOWFLAKE_DEFAULT: "snowflake://_:_@_/TASTY_BYTES_DBT_DB/DEV?warehouse=COMPUTE_WH&role=ACCOUNTADMIN"
-  SNOWFLAKE_PASSWORD: "_" # Replace this
-  SNOWFLAKE_ACCOUNT: "_"
-  SNOWFLAKE_USER: "_"
+  AIRFLOW_CONN_SNOWFLAKE_DEFAULT: "_"  
+
 ---
 # Database Service
 apiVersion: v1
@@ -79,7 +77,6 @@ spec:
         app: airflow-main
     spec:
       initContainers:
-        # Replaces 'airflow-init' from docker-compose
         - name: airflow-init
           image: my-airflow-dbt:v1
           imagePullPolicy: IfNotPresent
@@ -87,6 +84,13 @@ spec:
             - secretRef:
                 name: airflow-secrets
           command: ["bash", "-c", "airflow db migrate && airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com"]
+      volumes:
+        - name: local-logs
+          hostPath:
+            # UPDATE THIS PATH to match your actual Windows project folder!
+            # Example: C:\Users\Admin\dbt_project\airflow_logs
+            path: /run/desktop/mnt/host/c/Users/pierre.mulliez/Documents/GitHub/getting-started-with-dbt-on-snowflake/tasty_bytes_orchestration/airflow_logs
+            type: DirectoryOrCreate
       containers:
         - name: airflow-scheduler
           image: my-airflow-dbt:v1
@@ -95,6 +99,10 @@ spec:
           envFrom:
             - secretRef:
                 name: airflow-secrets
+          #  Mount the Volume (Map it to Airflow's internal log folder)
+          volumeMounts:
+            - name: local-logs
+              mountPath: /opt/airflow/logs
         - name: airflow-webserver
           image: my-airflow-dbt:v1
           imagePullPolicy: IfNotPresent
@@ -104,3 +112,7 @@ spec:
           envFrom:
             - secretRef:
                 name: airflow-secrets
+          #  Mount the Volume (Map it to Airflow's internal log folder)
+          volumeMounts:
+            - name: local-logs
+              mountPath: /opt/airflow/logs
