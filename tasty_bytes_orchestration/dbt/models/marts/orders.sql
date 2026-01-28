@@ -1,4 +1,12 @@
+{{
+    config(
+        materialized='incremental',
+        unique_key='order_key' 
+    )
+}}
+
 SELECT 
+    concat(oh.order_id, '-',oh.truck_id) as order_key,
     oh.order_id,
     oh.truck_id,
     oh.order_ts,
@@ -44,3 +52,7 @@ JOIN {{ ref('raw_pos_location') }} l
     ON oh.location_id = l.location_id
 LEFT JOIN {{ ref('raw_customer_customer_loyalty') }} cl
     ON oh.customer_id = cl.customer_id
+
+{% if is_incremental() %}
+    WHERE oh.order_ts > (SELECT MAX(order_ts) FROM {{ this }})
+{% endif %}
